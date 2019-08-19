@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/view_head" />
+
     <com.seselin.diypanel.view.PanelView
         android:id="@+id/panel_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/tv_result"

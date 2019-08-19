@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/iv_title_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:src="@drawable/title_bar_back"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_title_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:text="取消"
+        android:textColor="#414B55"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="52dp"
+        android:layout_marginRight="52dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:text="标题"
+        android:textColor="#32373C"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tv_title_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:text="更多"
+        android:textColor="#414B55"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_title_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

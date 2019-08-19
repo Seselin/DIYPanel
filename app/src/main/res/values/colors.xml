@@ -3,4 +3,13 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    /*顶部导航栏、标题_加粗、主要文字 50 55 65*/
+    <color name="app_text_title">#32373C</color>
+    /*文本段落 65 75 85*/
+    <color name="app_text_paragraph">#414B55</color>
+    /*辅助文字 100 105 115*/
+    <color name="app_text_paragraph_auxiliary">#646973</color>
+    /*次要文字、提示文字 155 160 170*/
+    <color name="app_text_paragraph_lesser">#9BA0AA</color>
 </resources>
