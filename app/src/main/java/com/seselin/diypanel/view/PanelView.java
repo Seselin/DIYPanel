@@ -1,18 +1,18 @@
 package com.seselin.diypanel.view;
 
 import android.content.Context;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.adapter.GridAdapter;
@@ -96,8 +96,9 @@ public class PanelView extends FrameLayout {
                 //添加默认奖品
                 this.prizeBeans.add(DataUtil.getDefaultPrizeBean());
             }
-            Collections.shuffle(this.prizeBeans);
         }
+
+        Collections.shuffle(this.prizeBeans);
 
         beans = new ArrayList<>();
         for (int i = 0; i < spanCount * spanCount; i++) {
@@ -173,15 +174,12 @@ public class PanelView extends FrameLayout {
             }
         });
 
-        btnAction.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isGameRunning) {
-                    return;
-                }
-                int stayIndex = getStayIndex();
-                startGame(stayIndex);
+        btnAction.setOnClickListener(view -> {
+            if (isGameRunning) {
+                return;
             }
+            int stayIndex = getStayIndex();
+            startGame(stayIndex);
         });
     }
 
@@ -191,18 +189,15 @@ public class PanelView extends FrameLayout {
         currentTotal = 0;
         isTryToStop = false;
         currentSpeed = DEFAULT_SPEED;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isGameRunning) {
-                    try {
-                        Thread.sleep(getInterruptTime());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (isGameRunning) {
-                        recyclerView.post(ViewRunnable());
-                    }
+        new Thread(() -> {
+            while (isGameRunning) {
+                try {
+                    Thread.sleep(getInterruptTime());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (isGameRunning) {
+                    recyclerView.post(ViewRunnable());
                 }
             }
         }).start();
@@ -217,23 +212,20 @@ public class PanelView extends FrameLayout {
     }
 
     private Runnable ViewRunnable() {
-        return new Runnable() {
-            @Override
-            public void run() {
-                int preIndex = currentIndex;
-                currentIndex++;
-                if (currentIndex >= indexList.size()) {
-                    currentIndex = 0;
-                }
-                beans.get(indexList.get(preIndex)).setFocus(false);
-                beans.get(indexList.get(currentIndex)).setFocus(true);
-                adapter.notifyDataSetChanged();
+        return () -> {
+            int preIndex = currentIndex;
+            currentIndex++;
+            if (currentIndex >= indexList.size()) {
+                currentIndex = 0;
+            }
+            beans.get(indexList.get(preIndex)).setFocus(false);
+            beans.get(indexList.get(currentIndex)).setFocus(true);
+            adapter.notifyDataSetChanged();
 
-                if (isTryToStop && currentSpeed > MAX_SPEED - 200 && stayIndex == currentIndex) {
-                    isGameRunning = false;
-                    if (panelListener != null) {
-                        panelListener.onStop(prizeBeans.get(stayIndex));
-                    }
+            if (isTryToStop && currentSpeed > MAX_SPEED - 200 && stayIndex == currentIndex) {
+                isGameRunning = false;
+                if (panelListener != null) {
+                    panelListener.onStop(prizeBeans.get(stayIndex));
                 }
             }
         };

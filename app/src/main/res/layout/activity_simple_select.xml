@@ -7,18 +7,15 @@
 
     <include layout="@layout/view_head" />
 
-    <com.seselin.diypanel.view.PanelView
-        android:id="@+id/panel_view"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        android:layout_height="1dp"
+        android:background="#F4F6F8" />
 
-    <TextView
-        android:id="@+id/tv_result"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="结果"
-        android:textSize="30sp" />
+        android:divider="@null" />
 
 </LinearLayout>

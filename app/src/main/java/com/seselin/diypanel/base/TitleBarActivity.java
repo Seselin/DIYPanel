@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.seselin.diypanel.R;
 
 
-public class TitleBarActivity extends BaseActivity {
+public abstract class TitleBarActivity extends BaseActivity {
 
     protected ImageView leftIv;
     protected ImageView rightIv;
@@ -16,6 +16,14 @@ public class TitleBarActivity extends BaseActivity {
     protected TextView titleTv;
     protected TextView rightTv;
     protected TextView leftTv;
+
+    @Override
+    protected void initView() {
+        leftIv = findViewById(R.id.iv_title_left);
+        if (leftIv == null)
+            return;
+        leftIv.setOnClickListener(v -> finish());
+    }
 
     /**
      * 隐藏返回
@@ -45,12 +53,7 @@ public class TitleBarActivity extends BaseActivity {
         if (leftIv == null | resID == 0)
             return;
         leftIv.setImageResource(resID);
-        leftIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        leftIv.setOnClickListener(v -> finish());
     }
 
     /**

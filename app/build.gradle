@@ -18,6 +18,13 @@ android {
         }
     }
 
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
     configurations.all {
         resolutionStrategy.eachDependency {
             DependencyResolveDetails details ->
@@ -39,10 +46,15 @@ greendao {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.greenrobot:greendao:3.2.2'
-    implementation 'com.qmuiteam:qmui:1.0.6'
+    implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.zhy:base-rvadapter:3.0.3'
+
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
 }

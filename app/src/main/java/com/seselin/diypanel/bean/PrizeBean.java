@@ -14,6 +14,10 @@ public class PrizeBean {
     public PrizeBean() {
     }
 
+    public PrizeBean(String name, int weight) {
+        this(name, weight, 0);
+    }
+
     public PrizeBean(String name, int weight, int imageRes) {
         this.weight = weight;
         this.imageRes = imageRes;

@@ -4,6 +4,17 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="gray">#8C8C8C</color>
+    <color name="blue">#007FFF</color>
+    <color name="yellow">#FF8219</color>
+    <color name="light_gray">#dddddd</color>
+
+    /*背景色*/
+    <color name="app_bg">#F4F6F8</color>
+
     /*顶部导航栏、标题_加粗、主要文字 50 55 65*/
     <color name="app_text_title">#32373C</color>
     /*文本段落 65 75 85*/
