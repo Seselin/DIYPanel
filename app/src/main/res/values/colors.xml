@@ -12,6 +12,10 @@
     <color name="yellow">#FF8219</color>
     <color name="light_gray">#dddddd</color>
 
+    <color name="btn_confirm_normal">#007FFF</color>
+    <color name="btn_confirm_pressed">#19B6F6</color>
+    <color name="btn_confirm_disable">#CCCCCC</color>
+
     /*背景色*/
     <color name="app_bg">#F4F6F8</color>
 
@@ -23,4 +27,7 @@
     <color name="app_text_paragraph_auxiliary">#646973</color>
     /*次要文字、提示文字 155 160 170*/
     <color name="app_text_paragraph_lesser">#9BA0AA</color>
+    /*提示文字*/
+    <color name="app_text_hint">#D5DCE5</color>
+
 </resources>

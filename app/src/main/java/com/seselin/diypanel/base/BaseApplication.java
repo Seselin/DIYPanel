@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.greendao.gen.DaoMaster;
 import com.greendao.gen.DaoSession;
 import com.seselin.diypanel.BuildConfig;
@@ -45,6 +46,8 @@ public class BaseApplication extends Application {
         if (!BuildConfig.DEBUG) {
             debug = false;
         }
+
+        ARouter.init(this);
 
     }
 

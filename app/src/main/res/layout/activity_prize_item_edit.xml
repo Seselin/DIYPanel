@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_head" />
+
+    <View style="@style/divider_margin" />
+
+    <EditText
+        android:id="@+id/et_name"
+        style="@style/EditText_General"
+        android:hint="请输入奖品名称" />
+
+    <View style="@style/divider_margin" />
+
+    <EditText
+        android:id="@+id/et_weight"
+        style="@style/EditText_General"
+        android:hint="请输入奖品权重"
+        android:inputType="number"
+        android:maxEms="6" />
+
+    <View
+        style="@style/divider_margin"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/Button_General"
+        android:text="确定" />
+
+</LinearLayout>

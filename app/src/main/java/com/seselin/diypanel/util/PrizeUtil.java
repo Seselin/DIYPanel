@@ -2,12 +2,13 @@ package com.seselin.diypanel.util;
 
 
 import com.seselin.diypanel.bean.PrizeBean;
+import com.seselin.diypanel.bean.PrizeUIBean;
 
 import java.util.List;
 
 public class PrizeUtil {
 
-    public static int getPrizeIndex(List<PrizeBean> prizes) {
+    public static int getPrizeIndex(List<PrizeUIBean> prizes) {
         int random = -1;
         try {
             // 计算总权重

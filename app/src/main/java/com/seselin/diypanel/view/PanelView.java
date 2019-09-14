@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.adapter.GridAdapter;
 import com.seselin.diypanel.bean.PrizeBean;
+import com.seselin.diypanel.bean.PrizeUIBean;
 import com.seselin.diypanel.util.DataUtil;
 import com.seselin.diypanel.util.IndexUtil;
 import com.seselin.diypanel.util.PrizeUtil;
@@ -32,8 +33,8 @@ public class PanelView extends FrameLayout {
     private RecyclerView recyclerView;
     private Button btnAction;
 
-    private List<PrizeBean> prizeBeans;
-    private List<PrizeBean> beans;
+    private List<PrizeUIBean> prizeBeans;
+    private List<PrizeUIBean> beans;
     private List<Integer> indexList;
     private GridAdapter adapter;
 
@@ -81,17 +82,22 @@ public class PanelView extends FrameLayout {
      * @param prizeBeans 转盘上的奖品列表
      */
     public void initPanelData(int spanCount, List<PrizeBean> prizeBeans) {
+        List<PrizeUIBean> prizeUIBeans = new ArrayList<>();
+        for (PrizeBean prizeBean : prizeBeans) {
+            prizeUIBeans.add(PrizeUIBean.formatBean(prizeBean));
+        }
+
         this.spanCount = spanCount;
         this.prizeBeans = new ArrayList<>();
 
         int totalCount = (spanCount - 1) * 4;
-        int beanSize = prizeBeans.size();
+        int beanSize = prizeUIBeans.size();
         if (beanSize == totalCount) {
-            this.prizeBeans.addAll(prizeBeans);
+            this.prizeBeans.addAll(prizeUIBeans);
         } else if (beanSize > totalCount) {//奖品数大于格子数
-            this.prizeBeans.addAll(prizeBeans.subList(0, totalCount));
+            this.prizeBeans.addAll(prizeUIBeans.subList(0, totalCount));
         } else {//奖品数小于格子数
-            this.prizeBeans.addAll(prizeBeans);
+            this.prizeBeans.addAll(prizeUIBeans);
             while (this.prizeBeans.size() < totalCount) {
                 //添加默认奖品
                 this.prizeBeans.add(DataUtil.getDefaultPrizeBean());
@@ -102,13 +108,13 @@ public class PanelView extends FrameLayout {
 
         beans = new ArrayList<>();
         for (int i = 0; i < spanCount * spanCount; i++) {
-            beans.add(new PrizeBean());
+            beans.add(new PrizeUIBean());
         }
 
         indexList = IndexUtil.getIndexList(spanCount);
         for (int i = 0; i < indexList.size(); i++) {
             int index = indexList.get(i);
-            PrizeBean bean = this.prizeBeans.get(i);
+            PrizeUIBean bean = this.prizeBeans.get(i);
             beans.set(index, bean);
         }
 

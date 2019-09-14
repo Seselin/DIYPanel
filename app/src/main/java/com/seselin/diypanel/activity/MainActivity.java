@@ -4,6 +4,7 @@ import android.os.Message;
 import android.widget.TextView;
 
 import com.seselin.diypanel.R;
+import com.seselin.diypanel.activity.setting.SettingActivity;
 import com.seselin.diypanel.base.TitleBarActivity;
 import com.seselin.diypanel.bean.PrizeBean;
 import com.seselin.diypanel.bean.SelectBean;
@@ -55,7 +56,7 @@ public class MainActivity extends TitleBarActivity {
     private void setPanelData() {
         SelectBean selectBean = SettingConfig.getGridNum();
         int spanCount = Integer.parseInt(selectBean.getValue());
-        panelView.initPanelData(spanCount, DataUtil.getDevilItems());
+        panelView.initPanelData(spanCount, DataUtil.getPrizeData());
     }
 
     private void initPanel() {
@@ -88,6 +89,7 @@ public class MainActivity extends TitleBarActivity {
     public void onEventBus(Message message) {
         switch (message.what) {
             case EventBusTag.SET_GRID_NUM:
+            case EventBusTag.PRIZE_DATA_CHANGE:
                 setPanelData();
                 break;
             default:

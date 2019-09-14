@@ -1,4 +1,4 @@
-package com.seselin.diypanel.activity;
+package com.seselin.diypanel.activity.setting;
 
 import com.seselin.diypanel.base.BaseSelectActivity;
 import com.seselin.diypanel.bean.SelectBean;
@@ -30,7 +30,7 @@ public class GridSetActivity extends BaseSelectActivity {
     @Override
     protected void setSelectBean(SelectBean selectBean) {
         SettingConfig.saveGridNum(selectBean);
-        EventBusTag.post(EventBusTag.SET_GRID_NUM);
+        EventBusTag.send(EventBusTag.SET_GRID_NUM);
         finish();
     }
 

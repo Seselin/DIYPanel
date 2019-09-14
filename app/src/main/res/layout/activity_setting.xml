@@ -15,10 +15,34 @@
         android:text="抽奖格子数设定" />
 
     <TextView
-        android:id="@+id/tv_set_contain"
+        android:id="@+id/tv_select_combination"
         style="@style/clickItemStyle"
         android:layout_marginTop="10dp"
-        android:text="抽奖内容设定" />
+        android:text="奖品组合选择" />
+
+    <TextView
+        android:id="@+id/tv_edit_combination"
+        style="@style/clickItemStyle"
+        android:layout_marginTop="10dp"
+        android:text="奖品组合编辑" />
+
+    <TextView
+        android:id="@+id/tv_edit_contain"
+        style="@style/clickItemStyle"
+        android:layout_marginTop="10dp"
+        android:text="奖品库编辑" />
+
+    <TextView
+        android:id="@+id/tv_clear_contain"
+        style="@style/clickItemStyle"
+        android:layout_marginTop="10dp"
+        android:text="清空奖品库" />
+
+    <TextView
+        android:id="@+id/tv_set_default_contain"
+        style="@style/clickItemStyle"
+        android:layout_marginTop="10dp"
+        android:text="初始化奖品库" />
 
 
 </LinearLayout>
