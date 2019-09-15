@@ -3,6 +3,7 @@ package com.seselin.diypanel.util;
 
 import com.greendao.gen.DaoSession;
 import com.seselin.diypanel.base.BaseApplication;
+import com.seselin.diypanel.bean.HistoryBean;
 import com.seselin.diypanel.bean.PrizeBean;
 import com.seselin.diypanel.bean.PrizeUIBean;
 
@@ -81,6 +82,12 @@ public class DataUtil {
     public static void clearFirstOpen() {
         String firstOpenKey = "firstOpen";
         SPUtils.putBoolean(BaseApplication.getContext(), firstOpenKey, false);
+    }
+
+    public static void addHistoryBean(HistoryBean historyBean) {
+        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
+        mDaoSession.getHistoryBeanDao().insertOrReplace(historyBean);
+
     }
 
 }

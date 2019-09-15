@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.adapter.PrizeListAdapter;
 import com.seselin.diypanel.base.TitleBarActivity;
+import com.seselin.diypanel.bean.PrizeBean;
 import com.seselin.diypanel.tag.EventBusTag;
 import com.seselin.diypanel.util.DataUtil;
 
@@ -45,7 +46,11 @@ public class PrizeItemListActivity extends TitleBarActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new PrizeListAdapter(mContext, DataUtil.getPrizeData());
+        adapter = new PrizeListAdapter(DataUtil.getPrizeData());
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            PrizeBean bean = (PrizeBean) adapter.getItem(position);
+            PrizeItemEditActivity.load(bean);
+        });
         recyclerView.setAdapter(adapter);
     }
 

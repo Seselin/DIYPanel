@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.activity.setting.SettingActivity;
 import com.seselin.diypanel.base.TitleBarActivity;
+import com.seselin.diypanel.bean.HistoryBean;
 import com.seselin.diypanel.bean.PrizeBean;
 import com.seselin.diypanel.bean.SelectBean;
 import com.seselin.diypanel.tag.EventBusTag;
@@ -15,6 +16,8 @@ import com.seselin.diypanel.view.PanelView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,6 +56,12 @@ public class MainActivity extends TitleBarActivity {
         initPanel();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        panelView.stopGame();
+    }
+
     private void setPanelData() {
         SelectBean selectBean = SettingConfig.getGridNum();
         int spanCount = Integer.parseInt(selectBean.getValue());
@@ -66,11 +75,15 @@ public class MainActivity extends TitleBarActivity {
             @Override
             public void onStart(PrizeBean selectBean) {
                 tvResult.setText(selectBean.getName());
+                HistoryBean historyBean = new HistoryBean();
+                historyBean.setTime(new Date().getTime());
+                historyBean.setPrizeBean(selectBean);
+                DataUtil.addHistoryBean(historyBean);
             }
 
             @Override
             public void onStop(PrizeBean selectBean) {
-                ToastShow("stop " + selectBean.getName());
+//                ToastShow("stop " + selectBean.getName());
             }
         });
     }

@@ -45,6 +45,7 @@ public class PanelView extends FrameLayout {
 
     private boolean isGameRunning = false;
     private boolean isTryToStop = false;
+    private boolean isForceStop = false;
 
     private static final int DEFAULT_SPEED = 150;
     private static final int MIN_SPEED = 50;
@@ -182,6 +183,7 @@ public class PanelView extends FrameLayout {
 
         btnAction.setOnClickListener(view -> {
             if (isGameRunning) {
+                stopGame();
                 return;
             }
             int stayIndex = getStayIndex();
@@ -190,6 +192,7 @@ public class PanelView extends FrameLayout {
     }
 
     private void startGame(int stayIndex) {
+        isForceStop = false;
         isGameRunning = true;
         this.stayIndex = stayIndex;
         currentTotal = 0;
@@ -209,27 +212,41 @@ public class PanelView extends FrameLayout {
         }).start();
     }
 
+    public void stopGame() {
+        if (isGameRunning) {
+            isForceStop = true;
+        }
+    }
+
     private void initRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, spanCount);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new GridAdapter(mContext, beans);
+        adapter = new GridAdapter(beans);
         recyclerView.setAdapter(adapter);
     }
 
     private Runnable ViewRunnable() {
         return () -> {
+
             int preIndex = currentIndex;
             currentIndex++;
             if (currentIndex >= indexList.size()) {
                 currentIndex = 0;
             }
+
+            isGameRunning = !(isTryToStop && currentSpeed > MAX_SPEED - 200 && stayIndex == currentIndex);
+
+            if (isForceStop) {//强制停止
+                currentIndex = stayIndex;
+                isGameRunning = false;
+            }
+
             beans.get(indexList.get(preIndex)).setFocus(false);
             beans.get(indexList.get(currentIndex)).setFocus(true);
             adapter.notifyDataSetChanged();
 
-            if (isTryToStop && currentSpeed > MAX_SPEED - 200 && stayIndex == currentIndex) {
-                isGameRunning = false;
+            if (!isGameRunning) {
                 if (panelListener != null) {
                     panelListener.onStop(prizeBeans.get(stayIndex));
                 }
