@@ -6,6 +6,7 @@ import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.converter.PropertyConverter;
 
 /**
@@ -14,6 +15,7 @@ import org.greenrobot.greendao.converter.PropertyConverter;
 @Entity
 public class HistoryBean implements Comparable<HistoryBean> {
 
+    @Property
     @Id
     long time;
 

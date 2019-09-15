@@ -2,10 +2,13 @@ package com.seselin.diypanel.util;
 
 
 import com.greendao.gen.DaoSession;
+import com.greendao.gen.HistoryBeanDao;
 import com.seselin.diypanel.base.BaseApplication;
 import com.seselin.diypanel.bean.HistoryBean;
 import com.seselin.diypanel.bean.PrizeBean;
 import com.seselin.diypanel.bean.PrizeUIBean;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,7 +90,22 @@ public class DataUtil {
     public static void addHistoryBean(HistoryBean historyBean) {
         DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
         mDaoSession.getHistoryBeanDao().insertOrReplace(historyBean);
+    }
 
+    public static List<HistoryBean> getHistoryData() {
+        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
+        List<HistoryBean> beans = mDaoSession.getHistoryBeanDao().loadAll();
+        return beans;
+    }
+
+    public static List<HistoryBean> getHistoryDataByPage(int page,int offset) {
+        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
+        QueryBuilder queryBuilder = mDaoSession.getHistoryBeanDao().queryBuilder()
+                .orderDesc(HistoryBeanDao.Properties.Time)
+                .offset(page * offset)
+                .limit(offset);
+        List<HistoryBean> beans = queryBuilder.list();
+        return beans;
     }
 
 }

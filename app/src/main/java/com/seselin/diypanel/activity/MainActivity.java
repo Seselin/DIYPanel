@@ -94,8 +94,8 @@ public class MainActivity extends TitleBarActivity {
     }
 
     @OnClick(R.id.tv_title_left)
-    void goHistory() {
-        // TODO 跳转历史记录
+    void goHistory() {//  跳转历史记录
+        goActivity(HistoryActivity.class);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
