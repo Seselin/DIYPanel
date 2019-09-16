@@ -5,6 +5,7 @@ import com.greendao.gen.DaoSession;
 import com.greendao.gen.HistoryBeanDao;
 import com.seselin.diypanel.base.BaseApplication;
 import com.seselin.diypanel.bean.HistoryBean;
+import com.seselin.diypanel.bean.PlanBean;
 import com.seselin.diypanel.bean.PrizeBean;
 import com.seselin.diypanel.bean.PrizeUIBean;
 
@@ -20,9 +21,7 @@ import java.util.List;
 public class DataUtil {
 
     public static List<PrizeBean> getDevilItems() {
-
         List<PrizeBean> beans = new ArrayList<>();
-
         beans.add(new PrizeBean("彩虹怪", 16));
         beans.add(new PrizeBean("帝王天使怪", 16));
         beans.add(new PrizeBean("水晶 15", 224));
@@ -40,7 +39,6 @@ public class DataUtil {
         for (int i = 0; i < beans.size(); i++) {
             beans.get(i).setId(id + i);
         }
-
         return beans;
     }
 
@@ -75,30 +73,12 @@ public class DataUtil {
         return beans;
     }
 
-    public static boolean isFirstOpen() {
-        String firstOpenKey = "firstOpen";
-        boolean isFirstOpen = SPUtils.getBoolean(BaseApplication.getContext()
-                , firstOpenKey, true);
-        return isFirstOpen;
-    }
-
-    public static void clearFirstOpen() {
-        String firstOpenKey = "firstOpen";
-        SPUtils.putBoolean(BaseApplication.getContext(), firstOpenKey, false);
-    }
-
     public static void addHistoryBean(HistoryBean historyBean) {
         DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
         mDaoSession.getHistoryBeanDao().insertOrReplace(historyBean);
     }
 
-    public static List<HistoryBean> getHistoryData() {
-        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
-        List<HistoryBean> beans = mDaoSession.getHistoryBeanDao().loadAll();
-        return beans;
-    }
-
-    public static List<HistoryBean> getHistoryDataByPage(int page,int offset) {
+    public static List<HistoryBean> getHistoryDataByPage(int page, int offset) {
         DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
         QueryBuilder queryBuilder = mDaoSession.getHistoryBeanDao().queryBuilder()
                 .orderDesc(HistoryBeanDao.Properties.Time)
@@ -106,6 +86,21 @@ public class DataUtil {
                 .limit(offset);
         List<HistoryBean> beans = queryBuilder.list();
         return beans;
+    }
+
+    public static void addPlanBean(PlanBean planBean) {
+        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
+        mDaoSession.getPlanBeanDao().insertOrReplace(planBean);
+    }
+
+    public static void deletePlanBean(Long id) {
+        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
+        mDaoSession.getPlanBeanDao().deleteByKey(id);
+    }
+
+    public static PlanBean getPlanById(Long id) {
+        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
+        return mDaoSession.getPlanBeanDao().load(id);
     }
 
 }

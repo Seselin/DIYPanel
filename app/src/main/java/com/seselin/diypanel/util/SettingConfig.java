@@ -22,4 +22,16 @@ public class SettingConfig {
         return bean;
     }
 
+    public static boolean isFirstOpen() {
+        String firstOpenKey = "firstOpen";
+        boolean isFirstOpen = SPUtils.getBoolean(BaseApplication.getContext()
+                , firstOpenKey, true);
+        return isFirstOpen;
+    }
+
+    public static void clearFirstOpen() {
+        String firstOpenKey = "firstOpen";
+        SPUtils.putBoolean(BaseApplication.getContext(), firstOpenKey, false);
+    }
+
 }

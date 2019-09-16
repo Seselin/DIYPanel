@@ -11,10 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.seselin.diypanel.activity.setting.PrizeItemListActivity;
+import com.seselin.diypanel.activity.setting.SettingActivity;
 import com.seselin.diypanel.base.BaseApplication;
 import com.seselin.diypanel.util.ApkTools;
 import com.seselin.diypanel.util.DataUtil;
+import com.seselin.diypanel.util.SettingConfig;
 
 
 public class StartActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
         boolean test = false;
 //        test = true;
         if (test) {// 启动测试页
-            goActivity(PrizeItemListActivity.class);
+            goActivity(SettingActivity.class);
             return;
         }
 
@@ -49,9 +50,9 @@ public class StartActivity extends AppCompatActivity {
 
     private void startApp() {
         BaseApplication.getInstance().initDatabase();
-        if (DataUtil.isFirstOpen()) {
+        if (SettingConfig.isFirstOpen()) {
             DataUtil.initData();
-            DataUtil.clearFirstOpen();
+            SettingConfig.clearFirstOpen();
         }
         goStartActivity();
         finish();
