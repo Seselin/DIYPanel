@@ -3,12 +3,10 @@ package com.seselin.diypanel.activity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.greendao.gen.DaoSession;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.adapter.HistoryListAdapter;
-import com.seselin.diypanel.base.BaseApplication;
 import com.seselin.diypanel.base.TitleBarActivity;
 import com.seselin.diypanel.bean.HistoryBean;
 import com.seselin.diypanel.tag.Color;
@@ -47,8 +45,7 @@ public class HistoryActivity extends TitleBarActivity {
         setRightTv("清空记录");
         rightTv.setTextColor(Color.RED);
         rightTv.setOnClickListener(view -> {
-            DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
-            mDaoSession.getHistoryBeanDao().deleteAll();
+            DataUtil.clearHistoryData();
             loadFistPage();
         });
 

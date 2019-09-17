@@ -10,7 +10,6 @@ import org.greenrobot.greendao.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Seselin on 2019/9/16.
@@ -62,15 +61,15 @@ public class PlanBean {
         this.prizeListStr = prizeListStr;
     }
 
-    public List<String> getPrizeList() {
-        List<String> prizeIds = new ArrayList<>();
+    public ArrayList<String> getPrizeList() {
+        ArrayList<String> prizeIds = new ArrayList<>();
         if (!TextUtils.isEmpty(prizeListStr)) {
-            prizeIds = Arrays.asList(prizeListStr.split(","));
+            prizeIds.addAll(Arrays.asList(prizeListStr.split(",")));
         }
         return prizeIds;
     }
 
-    public void SetPrizeList(ArrayList<String> prizeIds) {
+    public void setPrizeList(ArrayList<String> prizeIds) {
         prizeListStr = "";
         for (String prizeId : prizeIds) {
             prizeListStr = InputUtil.addString(prizeListStr, prizeId);

@@ -6,9 +6,10 @@ import android.widget.TextView;
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.activity.setting.SettingActivity;
 import com.seselin.diypanel.base.TitleBarActivity;
+import com.seselin.diypanel.bean.GridBean;
 import com.seselin.diypanel.bean.HistoryBean;
+import com.seselin.diypanel.bean.PlanBean;
 import com.seselin.diypanel.bean.PrizeBean;
-import com.seselin.diypanel.bean.SelectBean;
 import com.seselin.diypanel.tag.EventBusTag;
 import com.seselin.diypanel.util.DataUtil;
 import com.seselin.diypanel.util.SettingConfig;
@@ -18,6 +19,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,9 +65,18 @@ public class MainActivity extends TitleBarActivity {
     }
 
     private void setPanelData() {
-        SelectBean selectBean = SettingConfig.getGridNum();
+        GridBean selectBean = SettingConfig.getGridNum();
         int spanCount = Integer.parseInt(selectBean.getValue());
-        panelView.initPanelData(spanCount, DataUtil.getPrizeData());
+
+        PlanBean planBean = SettingConfig.getPlan();
+        List<PrizeBean> prizeBeans;
+        if (planBean != null) {
+            prizeBeans = DataUtil.getPrizeDataByKey(planBean.getPrizeList());
+        } else {
+            prizeBeans = DataUtil.getPrizeAllData();
+        }
+
+        panelView.initPanelData(spanCount, prizeBeans);
     }
 
     private void initPanel() {
@@ -103,6 +114,7 @@ public class MainActivity extends TitleBarActivity {
         switch (message.what) {
             case EventBusTag.SET_GRID_NUM:
             case EventBusTag.PRIZE_DATA_CHANGE:
+            case EventBusTag.PRIZE_PLAN_CHANGE:
                 setPanelData();
                 break;
             default:

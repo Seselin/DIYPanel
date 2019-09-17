@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.seselin.diypanel.R;
-import com.seselin.diypanel.adapter.CheckMenuAdapter;
+import com.seselin.diypanel.adapter.SelectMenuAdapter;
 import com.seselin.diypanel.bean.CheckBean;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Seselin on 2019/9/16 13:10.
  */
-public class CheckWindow extends Dialog {
+public class SelectWindow extends Dialog {
 
     @BindView(R.id.iv_title_left)
     ImageView ivTitleLeft;
@@ -33,24 +32,22 @@ public class CheckWindow extends Dialog {
     TextView tvTitleName;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.btn_bottom)
-    Button btnBottom;
 
-    private CheckMenuAdapter menuAdapter;
+    private SelectMenuAdapter menuAdapter;
 
     private OnMenuListener listener;
 
     public interface OnMenuListener {
-        void onConfirmClick(ArrayList<String> selectKeyList);
+        void onConfirmClick(String selectKey);
     }
 
     public void setOnMenuListener(OnMenuListener listener) {
         this.listener = listener;
     }
 
-    public CheckWindow(Context context, ArrayList<CheckBean> dataList) {
+    public SelectWindow(Context context, ArrayList<CheckBean> dataList) {
         super(context, R.style.MenuDialogStyle);
-        View menuView = LayoutInflater.from(context).inflate(R.layout.activity_list_with_button, null);
+        View menuView = LayoutInflater.from(context).inflate(R.layout.window_select, null);
         Window window = this.getWindow();
         window.setContentView(menuView);
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
@@ -61,7 +58,7 @@ public class CheckWindow extends Dialog {
         dataList1.clear();
         dataList1.addAll(dataList);
 
-        menuAdapter = new CheckMenuAdapter(dataList1);
+        menuAdapter = new SelectMenuAdapter(dataList1);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
@@ -71,27 +68,12 @@ public class CheckWindow extends Dialog {
 
     private void initListener() {
         tvTitleName.setText("请选择");
-        btnBottom.setText("确定");
         ivTitleLeft.setOnClickListener(v -> dismiss());
 
         menuAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ArrayList<CheckBean> dataList = (ArrayList<CheckBean>) menuAdapter.getData();
-            boolean isCheck = !dataList.get(position).isCheck();
-            dataList.get(position).setCheck(isCheck);
-            menuAdapter.notifyDataSetChanged();
-        });
-
-        btnBottom.setOnClickListener(v -> {
+            CheckBean bean = (CheckBean) adapter.getItem(position);
             if (listener != null) {
-                ArrayList<String> selectKeyList = new ArrayList<>();
-                ArrayList<CheckBean> dataList = (ArrayList<CheckBean>) menuAdapter.getData();
-                for (CheckBean checkBean : dataList) {
-                    if (checkBean.isCheck()) {
-                        String key = checkBean.getKey();
-                        selectKeyList.add(key);
-                    }
-                }
-                listener.onConfirmClick(selectKeyList);
+                listener.onConfirmClick(bean.getKey());
             }
             dismiss();
         });

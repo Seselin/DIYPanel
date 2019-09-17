@@ -83,6 +83,9 @@ public class PanelView extends FrameLayout {
      * @param prizeBeans 转盘上的奖品列表
      */
     public void initPanelData(int spanCount, List<PrizeBean> prizeBeans) {
+        currentIndex = 0;
+        stayIndex = 0;
+
         List<PrizeUIBean> prizeUIBeans = new ArrayList<>();
         for (PrizeBean prizeBean : prizeBeans) {
             prizeUIBeans.add(PrizeUIBean.formatBean(prizeBean));

@@ -2,25 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/btn_bottom"
     android:background="@color/app_bg"
     android:orientation="vertical">
 
     <include layout="@layout/view_head" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/btn_add"
-        style="@style/Button_General"
-        android:text="新增奖品" />
-
 </LinearLayout>
-

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
@@ -17,7 +18,9 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="1dp" />
+            android:layout_marginTop="1dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 
@@ -33,7 +36,6 @@
         android:id="@+id/btn_bottom"
         style="@style/Button_General"
         android:layout_alignParentBottom="true"
-        android:text="确定"
-        android:visibility="visible" />
+        android:text="确定" />
 
 </RelativeLayout>

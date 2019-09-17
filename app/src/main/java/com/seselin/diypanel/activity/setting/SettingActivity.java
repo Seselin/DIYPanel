@@ -1,15 +1,20 @@
 package com.seselin.diypanel.activity.setting;
 
+import android.os.Message;
 import android.widget.TextView;
 
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.base.TitleBarActivity;
 import com.seselin.diypanel.bean.CheckBean;
+import com.seselin.diypanel.bean.GridBean;
 import com.seselin.diypanel.bean.PlanBean;
-import com.seselin.diypanel.bean.PrizeBean;
 import com.seselin.diypanel.tag.EventBusTag;
 import com.seselin.diypanel.util.DataUtil;
-import com.seselin.diypanel.window.CheckWindow;
+import com.seselin.diypanel.util.SettingConfig;
+import com.seselin.diypanel.window.SelectWindow;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -21,8 +26,14 @@ import butterknife.OnClick;
  */
 public class SettingActivity extends TitleBarActivity {
 
-    @BindView(R.id.tv_set_num)
-    TextView tvSetNum;
+    {
+        useEventBus = true;
+    }
+
+    @BindView(R.id.tv_num_config)
+    TextView tvNumConfig;
+    @BindView(R.id.tv_plan_config)
+    TextView tvPlanConfig;
 
     @Override
     protected void setLayoutView() {
@@ -33,45 +44,62 @@ public class SettingActivity extends TitleBarActivity {
     protected void initView() {
         super.initView();
         setTitleTv("设置");
+
+        initGridNum();
+        initPlanSet();
     }
 
-    @OnClick(R.id.tv_set_num)
+    private void initPlanSet() {
+        PlanBean planBean = SettingConfig.getPlan();
+        if (planBean != null) {
+            tvPlanConfig.setText(planBean.getName());
+        }
+    }
+
+    private void initGridNum() {
+        GridBean gridBean = SettingConfig.getGridNum();
+        tvNumConfig.setText(gridBean.getName());
+    }
+
+    @OnClick(R.id.ll_set_num)
     void setNum() {
-        goActivity(GridSetActivity.class);
-    }
-
-    Long planId = 2L;
-
-    @OnClick(R.id.tv_select_combination)
-    void selectCombination() {
-        PlanBean myPlan = DataUtil.getPlanById(planId);
-        ArrayList<String> keyList = new ArrayList<>();
-        keyList.addAll(myPlan.getPrizeList());
-
-        ArrayList<PrizeBean> dataList = (ArrayList<PrizeBean>) DataUtil.getPrizeData();
+        ArrayList<GridBean> beans = DataUtil.getGridBeans();
         ArrayList<CheckBean> checkList = new ArrayList<>();
-        for (PrizeBean prizeBean : dataList) {
-            String key = String.format("%d", prizeBean.getId());
-
-            CheckBean checkBean = new CheckBean()
-                    .setKey(key)
-                    .setName(prizeBean.getName())
-                    .setCheck(keyList.contains(key));
+        for (GridBean bean : beans) {
+            CheckBean checkBean = new CheckBean(bean.getName(), bean.getValue());
             checkList.add(checkBean);
         }
-        CheckWindow checkWindow = new CheckWindow(mContext, checkList);
-        checkWindow.setOnMenuListener(selectKeyList -> {
-            PlanBean planBean = new PlanBean(planId);
-            planBean.setName("测试方案");
-            planBean.SetPrizeList(selectKeyList);
-            DataUtil.addPlanBean(planBean);
+        SelectWindow selectWindow = new SelectWindow(mContext, checkList);
+        selectWindow.setOnMenuListener(selectKey -> {
+            GridBean gridBean = DataUtil.getGridBean(selectKey);
+            SettingConfig.saveGridNum(gridBean);
+            EventBusTag.send(EventBusTag.SET_GRID_NUM);
         });
-        checkWindow.show();
+        selectWindow.show();
     }
 
-    @OnClick(R.id.tv_edit_combination)
-    void editCombination() {
-        DataUtil.deletePlanBean(1L);
+    @OnClick(R.id.ll_select_plan)
+    void selectCombination() {
+        ArrayList<PlanBean> beans = (ArrayList<PlanBean>) DataUtil.getPlanList();
+        ArrayList<CheckBean> checkList = new ArrayList<>();
+        for (PlanBean planBean : beans) {
+            String key = String.format("%d", planBean.getId());
+            CheckBean checkBean = new CheckBean()
+                    .setKey(key)
+                    .setName(planBean.getName());
+            checkList.add(checkBean);
+        }
+        SelectWindow selectWindow = new SelectWindow(mContext, checkList);
+        selectWindow.setOnMenuListener(selectKey -> {
+            SettingConfig.setPlanId(selectKey);
+            EventBusTag.send(EventBusTag.PRIZE_PLAN_CHANGE);
+        });
+        selectWindow.show();
+    }
+
+    @OnClick(R.id.tv_edit_plan)
+    void editPlanList() {
+        goActivity(PlanListActivity.class);
     }
 
     @OnClick(R.id.tv_edit_contain)
@@ -89,6 +117,20 @@ public class SettingActivity extends TitleBarActivity {
     void setDefaultContain() {
         DataUtil.setDefaultPrizeData();
         EventBusTag.send(EventBusTag.PRIZE_DATA_CHANGE);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBus(Message message) {
+        switch (message.what) {
+            case EventBusTag.SET_GRID_NUM:
+                initGridNum();
+                break;
+            case EventBusTag.PRIZE_PLAN_CHANGE:
+                initPlanSet();
+                break;
+            default:
+                break;
+        }
     }
 
 }

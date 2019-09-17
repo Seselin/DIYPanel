@@ -8,20 +8,68 @@
 
     <include layout="@layout/view_head" />
 
-    <TextView
-        android:id="@+id/tv_set_num"
-        style="@style/clickItemStyle"
+    <LinearLayout
+        android:id="@+id/ll_set_num"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="1dp"
-        android:text="抽奖格子数设定" />
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="抽奖格子数设定"
+            android:textColor="@color/app_text_title" />
+
+        <TextView
+            android:id="@+id/tv_num_config"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/icon_next"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/blue" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_select_plan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="奖品组合选择"
+            android:textColor="@color/app_text_title" />
+
+        <TextView
+            android:id="@+id/tv_plan_config"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/icon_next"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/blue" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_select_combination"
-        style="@style/clickItemStyle"
-        android:layout_marginTop="1dp"
-        android:text="奖品组合选择" />
-
-    <TextView
-        android:id="@+id/tv_edit_combination"
+        android:id="@+id/tv_edit_plan"
         style="@style/clickItemStyle"
         android:layout_marginTop="1dp"
         android:text="奖品组合编辑" />
@@ -31,6 +79,8 @@
         style="@style/clickItemStyle"
         android:layout_marginTop="1dp"
         android:text="奖品库编辑" />
+
+    <View style="@style/divider_margin" />
 
     <TextView
         android:id="@+id/tv_clear_contain"

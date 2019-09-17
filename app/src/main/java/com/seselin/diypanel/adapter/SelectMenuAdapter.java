@@ -1,7 +1,5 @@
 package com.seselin.diypanel.adapter;
 
-import android.widget.CheckBox;
-
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,18 +12,16 @@ import java.util.List;
 /**
  * Created by Seselin on 2019/9/16.
  */
-public class CheckMenuAdapter extends BaseQuickAdapter<CheckBean, BaseViewHolder> {
+public class SelectMenuAdapter extends BaseQuickAdapter<CheckBean, BaseViewHolder> {
 
 
-    public CheckMenuAdapter(@Nullable List<CheckBean> data) {
-        super(R.layout.item_list_check, data);
+    public SelectMenuAdapter(@Nullable List<CheckBean> data) {
+        super(R.layout.item_simple_select, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, CheckBean item) {
-        helper.setText(R.id.tv_left, item.getName());
-        CheckBox checkBox = helper.getView(R.id.item_check_box);
-        checkBox.setChecked(item.isCheck());
+        helper.setText(R.id.tv_select, item.getName());
     }
 
 }

@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <View style="@style/divider_margin" />
+    <View style="@style/divider_line_horizontal" />
 
     <TextView
         android:id="@+id/tv_select"

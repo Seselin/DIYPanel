@@ -1,12 +1,11 @@
 package com.seselin.diypanel.bean;
 
-public class SelectBean {
+public class GridBean {
 
     private String name;
     private String value;
-    private boolean isCheck;
 
-    public SelectBean(String name, String value) {
+    public GridBean(String name, String value) {
         this.name = name;
         this.value = value;
     }
@@ -25,14 +24,6 @@ public class SelectBean {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public boolean isCheck() {
-        return isCheck;
-    }
-
-    public void setCheck(boolean check) {
-        isCheck = check;
     }
 
 }

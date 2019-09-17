@@ -12,6 +12,7 @@ public class EventBusTag {
 
     public static final int SET_GRID_NUM = 0x01;//设置网格的行数
     public static final int PRIZE_DATA_CHANGE = 0x02;//奖品信息改变
+    public static final int PRIZE_PLAN_CHANGE = 0x03;//奖品方案改变
 
     public static void send(int tag) {
         Message message = Message.obtain();

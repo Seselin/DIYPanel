@@ -14,7 +14,7 @@
         style="@style/EditText_General"
         android:hint="请输入奖品名称" />
 
-    <View style="@style/divider_margin" />
+    <View style="@style/divider_line_horizontal" />
 
     <EditText
         android:id="@+id/et_weight"
@@ -22,14 +22,5 @@
         android:hint="请输入奖品权重"
         android:inputType="number"
         android:maxEms="6" />
-
-    <View
-        style="@style/divider_margin"
-        android:layout_weight="1" />
-
-    <Button
-        android:id="@+id/btn_submit"
-        style="@style/Button_General"
-        android:text="确定" />
 
 </LinearLayout>

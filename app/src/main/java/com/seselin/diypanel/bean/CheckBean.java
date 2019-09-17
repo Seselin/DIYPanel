@@ -13,6 +13,11 @@ public class CheckBean {
     public CheckBean() {
     }
 
+    public CheckBean(String name, String key) {
+        this.name = name;
+        this.key = key;
+    }
+
     public boolean isCheck() {
         return isCheck;
     }

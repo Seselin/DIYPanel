@@ -13,20 +13,15 @@ import java.util.List;
  */
 public class HistoryListAdapter extends BaseQuickAdapter<HistoryBean, BaseViewHolder> {
 
-    public void setData(List<HistoryBean> datas) {
-        mData.clear();
-        mData.addAll(datas);
-    }
-
     public HistoryListAdapter(List<HistoryBean> datas) {
-        super(R.layout.item_prize_bean, datas);
+        super(R.layout.item_history_bean, datas);
     }
 
     @Override
     protected void convert(BaseViewHolder holder, HistoryBean bean) {
-        String time = DateUtils.getTimeStr(bean.getTime());
-        String name = bean.getPrizeBean().getName();
-        holder.setText(R.id.tv_name, time + "," + name);
+        String name = "奖品：" + bean.getPrizeBean().getName();
+        String time = "时间：" + DateUtils.getTimeStr(bean.getTime());
+        holder.setText(R.id.tv_name, name + "\n" + time);
     }
 
 }
