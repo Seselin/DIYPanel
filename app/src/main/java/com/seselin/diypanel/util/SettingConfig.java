@@ -6,6 +6,8 @@ import com.seselin.diypanel.base.BaseApplication;
 import com.seselin.diypanel.bean.GridBean;
 import com.seselin.diypanel.bean.PlanBean;
 
+import java.util.List;
+
 /**
  * Created by Seselin on 2019/9/14.
  */
@@ -42,6 +44,13 @@ public class SettingConfig {
         String planId = SPUtils.getString(BaseApplication.getContext(), PLAN_ID, "");
         if (!TextUtils.isEmpty(planId)) {
             planBean = DataUtil.getPlanById(Long.valueOf(planId));
+            if (planBean != null) {
+                return planBean;
+            }
+        }
+        List<PlanBean> planBeanList = DataUtil.getPlanList();
+        if (planBean == null && planBeanList.size() > 0) {
+            planBean = planBeanList.get(0);
         }
         return planBean;
     }

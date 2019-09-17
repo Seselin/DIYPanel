@@ -107,15 +107,9 @@ public class SettingActivity extends TitleBarActivity {
         goActivity(PrizeItemListActivity.class);
     }
 
-    @OnClick(R.id.tv_clear_contain)
-    void clearContain() {
-        DataUtil.clearPrizeData();
-        EventBusTag.send(EventBusTag.PRIZE_DATA_CHANGE);
-    }
-
     @OnClick(R.id.tv_set_default_contain)
     void setDefaultContain() {
-        DataUtil.setDefaultPrizeData();
+        DataUtil.setDefaultData();
         EventBusTag.send(EventBusTag.PRIZE_DATA_CHANGE);
     }
 

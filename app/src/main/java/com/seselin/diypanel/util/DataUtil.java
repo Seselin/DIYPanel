@@ -70,7 +70,7 @@ public class DataUtil {
     public static void initData() {
         DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
         if (0 == mDaoSession.getPrizeBeanDao().loadAll().size()) {
-            setDefaultPrizeData();
+            setDefaultData();
         }
     }
 
@@ -89,12 +89,19 @@ public class DataUtil {
         mDaoSession.getPrizeBeanDao().deleteAll();
     }
 
-    public static void setDefaultPrizeData() {
-        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
-        mDaoSession.getPrizeBeanDao().deleteAll();
+    public static void setDefaultData() {
+        clearPlanList();
+        clearPrizeData();
+        ArrayList<String> prizeIds = new ArrayList();
         for (PrizeBean devilItem : getDevilItems()) {
-            mDaoSession.getPrizeBeanDao().insertOrReplace(devilItem);
+            addPrizeBean(devilItem);
+            prizeIds.add(String.format("%d", devilItem.getId()));
         }
+        PlanBean planBean = new PlanBean(1L);
+        planBean.setName("魔灵召唤");
+        planBean.setPrizeList(prizeIds);
+        addPlanBean(planBean);
+        SettingConfig.setPlanId("1");
     }
 
     public static List<PrizeBean> getPrizeAllData() {
@@ -155,6 +162,11 @@ public class DataUtil {
     public static List<PlanBean> getPlanList() {
         DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
         return mDaoSession.getPlanBeanDao().loadAll();
+    }
+
+    public static void clearPlanList() {
+        DaoSession mDaoSession = BaseApplication.getInstance().getDaoSession();
+        mDaoSession.getPlanBeanDao().deleteAll();
     }
 
 }

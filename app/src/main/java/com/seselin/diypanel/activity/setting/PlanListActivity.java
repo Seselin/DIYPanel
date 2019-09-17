@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.seselin.diypanel.R;
 import com.seselin.diypanel.adapter.PlanListAdapter;
 import com.seselin.diypanel.base.TitleBarActivity;
-import com.seselin.diypanel.bean.PlanBean;
 import com.seselin.diypanel.tag.EventBusTag;
 import com.seselin.diypanel.util.DataUtil;
 
@@ -50,10 +49,6 @@ public class PlanListActivity extends TitleBarActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new PlanListAdapter(DataUtil.getPlanList());
-        adapter.setOnItemClickListener((adapter, view, position) -> {
-            PlanBean planBean = (PlanBean) adapter.getItem(position);
-            PlanEditActivity.load(planBean);
-        });
         recyclerView.setAdapter(adapter);
     }
 
